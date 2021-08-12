@@ -24,10 +24,13 @@ pipeline {
         }
 
         stage('Analisys'){
-            echo 'Analisys Stage'
+
             parallel{
 
                 stage('SonarQube Analysis') {
+             
+                    echo 'Analisys SonarQube stage'    
+
                     when { expression { false } } 
                     steps {
                         withSonarQubeEnv ('sonarqube') {
@@ -38,6 +41,7 @@ pipeline {
 
                 stage('QA') {
                     steps {
+                        echo 'Analisys QA stage'    
                         withGradle {
                             sh './gradlew check'
                         }
@@ -57,7 +61,7 @@ pipeline {
         }
 
         stage('Build') {
-            echo 'Build Stage'
+
             steps {
                 echo '\033[34mHello\033[0m \033[33mcolorful\033[0m \033[35mworld!\033[0m'
                 sh '''docker-compose build'''
