@@ -28,8 +28,6 @@ pipeline {
             parallel{
 
                 stage('SonarQube Analysis') {
-             
-                    echo 'Analisys SonarQube stage'    
 
                     when { expression { false } } 
                     steps {
@@ -86,7 +84,7 @@ pipeline {
         }
 
         stage('Publish'){
-            echo 'Publish Stage'
+
             steps{
                 tag 'docker tag hello-spring-testing:latest 10.250.4.3:5050/esteban/hello-spring/hello-spring-testing:MAIN-1'
                 withDockerRegistry([url:'10.250.4.3', credentialsId: 'dockerCli']){
