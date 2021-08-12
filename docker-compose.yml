@@ -1,0 +1,9 @@
+version: "3.0"
+services:
+  hello:
+    image: hello-gradle:latest
+    build: .
+    ports:
+      - "80:8080"
+  
+
