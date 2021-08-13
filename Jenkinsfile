@@ -86,9 +86,9 @@ pipeline {
         stage('Publish'){
 
             steps{
-                tag 'docker tag hello-spring-testing:latest 10.250.4.3:5050/esteban/hello-spring/hello-spring-testing:MAIN-1'
+                tag 'docker tag hello-spring-testing:latest 10.250.4.3:5050/esteban/hello-final:MAIN-1'
                 withDockerRegistry([url:'10.250.4.3', credentialsId: 'dockerCli']){
-                tag 'docker push --all-tags 10.250.4.3:5050/esteban/hello-spring-testing'
+                tag 'docker push --all-tags 10.250.4.3:5050/esteban/hello-final'
                 }
             }
         }
