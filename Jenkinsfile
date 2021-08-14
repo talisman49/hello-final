@@ -1,4 +1,4 @@
-
+#!usr/bin/env groovy
 import java.util.concurrent.CompletionStage
 
 pipeline {
