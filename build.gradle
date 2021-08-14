@@ -1,48 +1,53 @@
 plugins {
-	id 'org.springframework.boot' version '2.5.3'
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-	id 'java'
+    id 'org.springframework.boot' version '2.5.3'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'groovy'
+    id 'jacoco'
+    id 'pmd'
+    id "com.github.spotbugs" version "4.7.2"
+    id "org.sonarqube" version "3.3"
+    id 'info.solidsoft.pitest' version '1.5.1'
 }
 
-group = 'com.viewnext'
+group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '16'
+sourceCompatibility = '11'
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.codehaus.groovy:groovy'
+    testImplementation 'org.assertj:assertj-core:3.20.2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // testImplementation 'org.hamcrest:hamcrest:2.2'
 }
 
 test {
-	useJUnitPlatform()
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport // report is always generated after tests run
 }
 
 jacocoTestReport {
     dependsOn test // tests are required to run before generating the report
     reports {
         xml.required = true
-        csv.required = true
-        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
     }
 }
 spotbugs {
     ignoreFailures = true
 }
-pmd {
-    ignoreFailures = true
-}
-/*
+
 sonarqube {
-    properties {
-    property "sonar.projectKey", "gerardod_hellofinal_AXsQCeLg2ry_6mYOfZnY"
+  properties {
+    property "sonar.projectKey", "esteban_hello-spring-testing_AXsQF8xMk3CmvVDJyay4"
+    property "sonar.qualitygate.wait", true 
   }
 }
-*/
-pitest {
+
+pitest{
     junit5PluginVersion = '0.12'
     outputFormats = ['XML', 'HTML']
 }
