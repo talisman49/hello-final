@@ -103,12 +103,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploy Stage'
-                sshagent (credentials: ['jenkins-key']) {
-                    sh 'git tag MAIN-1.0.${BUILD_NUMBER}'
-                    sh 'git push --tags'
-                }
-                sshagent (credentials: ['app-key']) {
-    			    sh "ssh app@10.250.4.3 'cd hello-spring && docker-compose pull && docker-compose up -d'"
+                sshagent (credentials: ['esteban-key']) {
+                    sh "ssh -o StrictHostKeyChecking=no app2@10.250.4.3 'docker-compose pull && docker-compose up -d'"
                 }
             }
         }
