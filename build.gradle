@@ -1,6 +1,7 @@
 plugins {
     id 'org.springframework.boot' version '2.5.3'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
     id 'groovy'
     id 'jacoco'
     id 'pmd'
@@ -11,7 +12,15 @@ plugins {
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+//sourceCompatibility = '16'
+
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(16)
+  }
+}
+
+tasks.withType(Javadoc).all { enabled = false }
 
 repositories {
     mavenCentral()
@@ -33,19 +42,25 @@ test {
 jacocoTestReport {
     dependsOn test // tests are required to run before generating the report
     reports {
-        xml.required = true
+        xml.required = true        
+		csv.required = true
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
     }
 }
 spotbugs {
     ignoreFailures = true
 }
 
-sonarqube {
+pmd {
+    ignoreFailures = true
+}
+
+/*sonarqube {
   properties {
     property "sonar.projectKey", "esteban_hello-spring-testing_AXsQF8xMk3CmvVDJyay4"
     property "sonar.qualitygate.wait", true 
   }
-}
+}*/
 
 pitest{
     junit5PluginVersion = '0.12'
