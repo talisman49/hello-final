@@ -20,3 +20,29 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+    reports {
+        xml.required = true
+        csv.required = true
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
+}
+spotbugs {
+    ignoreFailures = true
+}
+pmd {
+    ignoreFailures = true
+}
+/*
+sonarqube {
+    properties {
+    property "sonar.projectKey", "gerardod_hellofinal_AXsQCeLg2ry_6mYOfZnY"
+  }
+}
+*/
+pitest {
+    junit5PluginVersion = '0.12'
+    outputFormats = ['XML', 'HTML']
+}
